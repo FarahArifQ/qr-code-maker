@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Maker</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #dbeafe, #f0fdf4);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #111827;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 18px;
+            border-radius: 14px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        button {
+            background-color: #10b981;
+            color: white;
+            padding: 14px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #059669;
+        }
+
+        .qr-result {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        img {
+            margin-top: 15px;
+            border-radius: 12px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+
+        a.download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 24px;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        a.download-btn:hover {
+            background-color: #2563eb;
+        }
+
+        @media (max-width: 700px) {
+            form {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            input[type="text"] {
+                font-size: 16px;
+                padding: 14px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🔳 QR Code Maker</h1>
+
+    <form method="POST">
+        <input type="text" name="data" placeholder="Enter any text or link" required>
+        <button type="submit">Generate QR Code</button>
+    </form>
+
+    {% if qr_code %}
+    <div class="qr-result">
+        <h3>Your QR Code:</h3>
+        <img src="{{ url_for('static', filename=qr_code) }}" width="250">
+        <br>
+        <a class="download-btn" href="{{ url_for('download', filename=qr_code) }}">Download</a>
+    </div>
+    {% endif %}
+</body>
+</html>
